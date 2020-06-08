@@ -36,7 +36,7 @@ class BladeEngineWrapper {
         //Create new blade instance
         $bladeEngineInstance = new BladeInstance(
             (array) $this->getViewPaths(),
-            (string) sys_get_temp_dir() . '/global-blade-engine-cache'
+            (string) $this->cachePath
         );
 
         return $bladeEngineInstance; 
