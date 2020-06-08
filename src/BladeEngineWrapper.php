@@ -4,9 +4,16 @@ namespace BladeEngineWrapper;
 
 use BC\Blade\Blade as BladeInstance;
 
-class LocalBladeEngine {
+class BladeEngineWrapper {
 
     private $viewPaths = [];
+    private $cachePath;
+
+    public function __construct()
+    {
+        $this->cachePath = (string) sys_get_temp_dir() . '/blade-engine-cache';
+    }
+
     /**
      * Gets previous instance, or create a new if empty/invalid 
      * 
@@ -25,7 +32,6 @@ class LocalBladeEngine {
 
         //Create cache path
         $this->createComponentCachePath(); 
-        $this->addViewPath('/Users/hiq/sites/municipio/wp-content/plugins/Modularity/source/php/Module/Text/views');
 
         //Create new blade instance
         $bladeEngineInstance = new BladeInstance(
@@ -79,16 +85,13 @@ class LocalBladeEngine {
      */
     private function createComponentCachePath() : string
     {
-
-        $cachePath = (string) sys_get_temp_dir() . '/global-blade-engine-cache'; 
-
-        if (!file_exists($cachePath)) {
-            if (!mkdir($cachePath, 0764, true)) {
-                throw new \Exception("Could not create cache folder: " . $cachePath);
+        if (!file_exists($this->cachePath)) {
+            if (!mkdir($this->cachePath, 0764, true)) {
+                throw new \Exception("Could not create cache folder: " . $this->cachePath);
             }
         }
 
-        return (string) $cachePath;
+        return (string) $this->cachePath;
     }
 
     /**
@@ -98,12 +101,9 @@ class LocalBladeEngine {
      */
     private function maybeClearCache($objectPath = null)
     {
-
-        $cachePath = (string) sys_get_temp_dir() . '/global-blade-engine-cache'; 
-
         if(defined('GLOBAL_BLADE_ENGINE_CLEAR_CACHE')  && GLOBAL_BLADE_ENGINE_CLEAR_CACHE === true){
 
-            $dir = rtrim($cachePath, "/") . DIRECTORY_SEPARATOR; 
+            $dir = rtrim($this->cachePath, "/") . DIRECTORY_SEPARATOR; 
 
             if (is_dir($dir)) { 
 
