@@ -1,6 +1,6 @@
 <?php 
 
-namespace BladeEngineWrapper;
+namespace HelsingborgStad;
 
 use BC\Blade\Blade as BladeInstance;
 
@@ -20,7 +20,6 @@ class BladeEngineWrapper {
      * @return object The blade obect 
      */
     public function instance() {
-
 
         //Require view paths
         if(empty($this->getViewPaths())) {
