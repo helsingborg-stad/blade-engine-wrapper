@@ -12,6 +12,10 @@ class BladeEngineWrapper {
     public function __construct()
     {
         $this->cachePath = (string) sys_get_temp_dir() . '/blade-engine-cache';
+
+        if(defined('WP_CONTENT_DIR')) {
+            $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+        }
     }
 
     /**
