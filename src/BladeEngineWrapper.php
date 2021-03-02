@@ -110,22 +110,9 @@ class BladeEngineWrapper {
 
             if (is_dir($dir)) { 
 
-                $objects = array_diff(scandir($dir), array('..', '.'));
+                $x = shell_exec("rm -rf " . $dir . "*"); 
 
-                if(is_array($objects) && !empty($objects)) {
-
-                    foreach ($objects as $object) {
-                        $objectPath = $dir."/".$object;
-
-                        if(is_dir($objectPath)) {
-                            $this->maybeClearCache($objectPath); 
-                        } else {
-                            unlink($objectPath);
-                        }
-                    }
-                }
-
-                rmdir($dir); 
+                return true; 
             }
         }
         
