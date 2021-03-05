@@ -14,7 +14,11 @@ class BladeEngineWrapper {
         $this->cachePath = (string) sys_get_temp_dir() . '/blade-engine-cache';
 
         if(defined('WP_CONTENT_DIR')) {
-            $this->cachePath = WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+            $this->cachePath = (string) WP_CONTENT_DIR . '/uploads/cache/blade-cache';
+        }
+
+        if(defined('BLADE_CUSTOM_CACHE_DIR')) {
+            $this->cachePath = (string) BLADE_CUSTOM_CACHE_DIR . '/blade-engine-cache';
         }
     }
 
