@@ -56,9 +56,16 @@ class BladeEngineWrapper {
      */
     public function addViewPath($path, $prepend = true) : array 
     {
-
         //Sanitize path
-        $path = rtrim($path, "/");
+        $path = str_replace("//", "/", rtrim($path, "/"));
+
+        if(!is_dir($path)) {
+            return $this->viewPaths;
+        }
+
+        if(in_array($path, $this->viewPaths)) {
+            return $this->viewPaths;
+        }
 
         //Push to location array
         if($prepend === true) {
@@ -70,9 +77,6 @@ class BladeEngineWrapper {
                 return $this->viewPaths;
             }
         }
-        
-        //Error if something went wrong
-        throw new \Exception("Error appending controller path: " . $path);
     }
 
     /**
