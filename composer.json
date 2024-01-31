@@ -30,7 +30,7 @@
         "illuminate/filesystem": "^8.83.27",
         "illuminate/support": "^8.83.27",
         "illuminate/view": "^8.83.27",
-        "doctrine/inflector": "^1.4.1",
+        "doctrine/inflector": "^1.4.2",
         "nesbot/carbon": "^2.34.0",
         "psr/container": "^1.0.0",
         "psr/log": "^1.1.3",
